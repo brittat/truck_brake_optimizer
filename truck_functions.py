@@ -36,6 +36,7 @@ def generateBinaryMatrix( noOfGenes,Nh,Ni,No ):
 
 def calculateFitness(velocities,distanceTravelled):
     averageVelocity = sum(velocities)/float(len(velocities))
+    #print(averageVelocity)
     fitness = math.sqrt(averageVelocity)*distanceTravelled
 
     return fitness
@@ -107,6 +108,9 @@ def testChromosome(W1,W2,truck,timeStep,Nh,dataSet):
 
             acc = acceleration(truck,currentTb,currentGear,currentAlpha,pedalPressure)
             newV = currentV + timeStep*acc
+            if newV < 0:
+            	newV = 0
+
             newTb= getBrakeTemp(tau,Ch,pedalPressure,currentTb,Tamb,timeStep)
             
             if newV > truck.v_max or newTb>truck.T_max:
@@ -266,9 +270,12 @@ def getSlopeAngle(x, iSlope, iDataSet):
         elif (iSlope== 8):
             alpha = 4 + 1*(math.sin(3 * math.cos(4 * math.sin(x/20)/10)/20))
         elif (iSlope== 9):
-            alpha = 2 + 2*(math.cos( 3 * math.sin(x/70)/50) + 3)
+            alpha = 5 -3*math.cos(x/20)
         elif (iSlope== 10):
-            alpha = 5 + 2*math.cos(3 * (math.sin(3*x/20)))
+             #+ 2*math.cos(3 * (math.sin(3*x/20))) 
+             alpha = 2 + 2*math.cos( x/60)
+            #print(alpha)
+            #alpha = 5
 
     elif (iDataSet == 2):
         if (iSlope == 1):

@@ -15,9 +15,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 timeStep = 0.1 #Used in numerical integration
-maxGens = 3000
-populationSize = 6 #Number of chromosomes
-noOfGenes = 10
+maxGens = 50
+populationSize = 10 #Number of chromosomes, must be even
+noOfGenes = 5
 Nh = 3 #Number of neurons in hidden layer of NN
 #The below numbers are part of the model and not to be varied:
 inputNeurons = 3 
@@ -45,7 +45,7 @@ newXVec = []
 for iGen in xrange(maxGens):
     genVec.append(iGen)
     fitness = []
-    if iGen %100 == 0:
+    if iGen %10 == 0:
         print iGen
     for iPop in xrange(populationSize):
         [W1,W2] = tf.decodeChromosome(population[iPop],Nh,noOfGenes)
@@ -108,7 +108,6 @@ for iGen in xrange(maxGens):
 
 
 #The storedData concerns the last slope of the data set
-
 plt.subplot(3, 1, 1)
 plt.plot(storedData[0], storedData[1], 'ko-')
 plt.xlabel('x position')
@@ -121,7 +120,7 @@ plt.ylabel('velocity')
 
 plt.subplot(3, 1, 3)
 plt.plot(newXVec, newPlotVec, 'r.-')
-plt.xlabel('x position')
+plt.xlabel('Generations')
 plt.ylabel('Fitness')
 
 plt.show()
